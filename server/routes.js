@@ -7,7 +7,7 @@ const spotify = new Spotify({
 });
 
 export default app => {
-  app.get('/auth/spotify', (req, res) => {
+  app.get('/auth/spotify', async (req, res) => {
     try {
       const authData = await spotify.clientCredentialsGrant();
       spotify.setAccessToken(authData.body['access_token']);
@@ -16,5 +16,10 @@ export default app => {
       console.log(e);
       res.sendStatus(401);
     }
+  });
+
+  app.get('/spotify/autocomplete', async (req, res) => {
+    const suggestions = await spotify.searchArtists(`artist:${req.query.term}*`);
+    res.json(suggestions);
   });
 };
