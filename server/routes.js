@@ -1,4 +1,6 @@
 import Spotify from 'spotify-web-api-node';
+import checkSchema from 'express-validator';
+import * as validations from './validation';
 
 const spotify = new Spotify({
   clientId: process.env.SPOTIFY_ID,
@@ -18,7 +20,7 @@ export default app => {
     }
   });
 
-  app.get('/spotify/autocomplete', async (req, res) => {
+  app.get('/spotify/autocomplete', checkSchema(validations.spotifyAutocomplete), async (req, res) => {
     const suggestions = await spotify.searchArtists(`artist:${req.query.term}*`);
     res.json(suggestions);
   });
