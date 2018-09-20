@@ -1,0 +1,32 @@
+{
+  "name": "eclipsed",
+  "version": "1.0.0",
+  "description": "A web app to discover new music artists through an infinite chain of suggestions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicBonetto/eclipsed.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NicBonetto/eclipsed/issues"
+  },
+  "homepage": "https://github.com/NicBonetto/eclipsed#readme",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "spotify-web-api-node": "^4.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.2",
+    "babel-preset-env": "^1.7.0",
+    "webpack": "^4.19.1"
+  }
+}
