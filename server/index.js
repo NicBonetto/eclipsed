@@ -8,3 +8,4 @@ const app = express();
 Routes(app);
 
 app.listen(process.env.PORT);
+console.log(`server running on http://0.0.0.0:${process.env.PORT}`);
