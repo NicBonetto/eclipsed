@@ -21,3 +21,11 @@ export const spotifySongs = {
     errorMessage: 'artist is required and must be a string'
   }
 };
+
+export const spotifyRelatedArtists = {
+  artist: {
+    in: ['params'],
+    isString: true,
+    errorMessage: 'artist is required and must be a string'
+  }
+};

@@ -27,8 +27,8 @@ export default app => {
   });
 
   app.get('/spotify/artist', checkSchema(validations.spotifyArtist), async (req, res) => {
-    const artist = spotifyHelper.separateAristName(req.query.artist);
     try {
+      const artist = spotifyHelper.separateAristName(req.query.artist);      
       const spotifyQuery = await spotify.searchArtists(artist);
       const found = spotifyQuery.body.artists.items.filter(data => {
         if (data.name === artist) return data;
@@ -41,8 +41,8 @@ export default app => {
   });
 
   app.get('/spotify/:artist/songs', checkSchema(validations.spotifySongs), async (req, res) => {
-    const artist = spotifyHelper.separateAristName(req.params.artist);
     try {
+      const artist = spotifyHelper.separateAristName(req.params.artist);      
       const spotifyQuery = await spotify.searchTracks(`artist:${artist}`);
       const songItems = spotifyQuery.body.tracks.items;
       const songList = [
@@ -51,6 +51,20 @@ export default app => {
         { name: songList[2].name, href: songList[2].preview_url }
       ];
       res.json(songList);
+    } catch (e) {
+      console.log(e);
+      res.sendStatus(500);
+    }
+  });
+
+  app.get('/spotify/related/:artist', checkSchema(validations.spotifyRelatedArtists), async (req, res) => {
+    try {
+      const artist = spotifyHelper.separateAristName(req.params.artist);
+      const spotifyArtistQuery = await spotify.searchArtists(artist);
+      const artistId = spotifyHelper.findArtistId(spotifyArtistQuery.body.artists.items, artist);
+      const spotifyRelatedQuery = await spotify.getArtistRelatedArtists(artistId);
+      const relatedArtists = spotifyHelper.formatRelatedArtists(spotifyRelatedQuery.body.artists);
+      res.json(relatedArtists);
     } catch (e) {
       console.log(e);
       res.sendStatus(500);
