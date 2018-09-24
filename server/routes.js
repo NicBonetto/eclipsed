@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import express from 'express';
 import Spotify from 'spotify-web-api-node';
 import { checkSchema, validationResult } from 'express-validator/check';
 import * as validations from './validation';
@@ -13,6 +14,8 @@ const spotify = new Spotify({
 });
 
 export default app => {
+  app.use(express.static(__dirname + '/../static/'));
+
   app.get('/auth/spotify', async (req, res) => {
     try {
       const authData = await spotify.clientCredentialsGrant();
